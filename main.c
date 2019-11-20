@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "Heap.h"
+
+#define TRUE 0
+#define FALSE 1
+#define MAX_SIZE 20
+
+int main(void)
+{
+	int i;
+	Element arr[7] = { 2, 63, 28, 48, 5, 89, 6 };
+	Heap* myHeap;
+	myHeap = createHeap(MAX_SIZE);
+	myHeap->heapAry = arr;
+	myHeap->size = 7;
+	buildHeap(myHeap);
+
+	for (i = 0; i < myHeap->size; i++)
+	{
+		printf("%d ", myHeap->heapAry[i]);
+	}
+	printf("\n");
+
+	int choice = 0;
+	Element data = 0;
+	
+	while (1)
+	{
+		printf("\nOption\n");
+		printf("1. Insert\n");
+		printf("2. Delete\n");
+		printf("3. Destroy\n");
+		printf("--------------------\n");
+		printf("What do you want? : ");
+		scanf_s("%d", &choice);
+
+		switch (choice)
+		{
+			case 1:
+			{
+				printf("Element : ");
+				scanf_s("%d", &data);
+				InsertHeap(myHeap, data);
+				for (i = 0; i < myHeap->size; i++)
+				{
+					printf("%d ", myHeap->heapAry[i]);
+				}
+				printf("\n");
+				break;
+			}
+			case 2 :
+			{
+				printf("Data : ");
+				scanf_s("%d", &data);
+				if (deleteHeap(myHeap, data) == FALSE)
+				{
+					printf("Delete failed\n");
+				}
+				for (i = 0; i < myHeap->size; i++)
+				{
+					printf("%d ", myHeap->heapAry[i]);
+				}
+				printf("\n");
+				break;
+			}
+			case 3 : 
+				if (heapDestroy(myHeap))
+				{
+					printf("Destroy success\n");
+				}
+				else
+					printf("Destory failed\n");
+		}
+	}
+}
